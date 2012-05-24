@@ -1,36 +1,87 @@
+<div class="row-fluid">
+
+  <div class="span4">
+    <h2>getUserSettings</h2>
+    <p>
+    <pre>@app.get_user_settings</pre>
+    Результат: <%= @app.get_user_settings %>
+    </p>
+    <p><a class="btn" target="_blank" href="http://vk.com/developers.php?o=-1&p=getUserSettings">API документация &raquo;</a></p>
+  </div><!--/span-->
+
+  <div class="span4">
+    <h2>Список групп</h2>
+    <p>
+      <pre>@app.groups.get</pre>
+      Результат: <%= @app.groups.get %>
+    </p>
+    
+    <p><a class="btn" target="_blank" href="http://vk.com/developers.php?o=-1&p=groups.get">API документация &raquo;</a></p>
+  </div><!--/span-->
+
+  <div class="span4">
+    <h2>Список друзей</h2>
+    <p>
+
 <pre>
-@app.get_user_settings  # => <%= @app.get_user_settings %>
-@app.groups.get         # => <%= @app.groups.get %>
-
-@app.friends.get(:fields=>'first_name,last_name') do |friend|
+@app.friends.get(:fields=>'first_name,last_name', :count=>7) do |friend|
   "#{friend[:first_name]} #{friend[:last_name]}"
-end 
+end
+</pre>
 
-<% friends = @app.friends.get(:fields=>'first_name,last_name') do |friend|
+Результат:<br />
+<% friends = @app.friends.get(:fields=>'first_name,last_name', :count=>7) do |friend|
      "#{friend[:first_name]} #{friend[:last_name]}"
    end %>
-<%= friends.join("\n") %>
+<%= friends.join("<br />") %>
 
+    </p>
+    
+    <p><a class="btn" target="_blank" href="http://vk.com/developers.php?o=-1&p=friends.get">API документация &raquo;</a></p>
+  </div><!--/span-->
 
-@app.audio.get do |audio| %>
+</div><!--/row-->
+<div class="row-fluid">
+
+  <div class="span4">
+    <h2>Список аудиозаписей</h2>
+    <p>
+<pre>
+@app.audio.get(:count=>7) do |audio|
   "#{audio[:artist]} : #{audio[:title]}"
 end
+</pre>
+      Результат:<br />
+      <% audios = @app.audio.get(:count=>7) do |audio|
+          "#{audio[:artist]}: #{audio[:title]}"
+         end %>
+      <%= audios.join("<br />") %>
+    </p>
+    
+    <p><a class="btn" target="_blank" href="http://vk.com/developers.php?o=-1&p=audio.get">API документация &raquo;</a></p>
+  </div><!--/span-->
 
 
-<% audios = @app.audio.get do |audio|
-    "#{audio[:artist]}: #{audio[:title]}"
-   end %>
-<%= audios.join("\n") %>
-
-
+  <div class="span4">
+    <h2>Записи на стене</h2>
+    <p>
+<pre>
 @app.wall.get(:count=>7) do |wall_item|
   "#{wall_item[:text]}"
 end
+</pre>
 
 <% wall_items = @app.wall.get(:count=>7) do |wall_item|
     "#{wall_item[:text]}"
    end %>
 <%= wall_items.join("\n\n") %>
+    </p>
+    <p><a class="btn" target="_blank" href="http://vk.com/developers.php?o=-1&p=wall.get">API документация &raquo;</a></p>
+  </div><!--/span-->
 
-
-</pre>
+  <div class="span4">
+    <h2>TODO</h2>
+    <p>...</p>
+    <p><a class="btn" href="#">View details &raquo;</a></p>
+  </div><!--/span-->
+</div><!--/row-->
