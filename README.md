@@ -46,11 +46,15 @@
 
 Далее включается поддержка сессий для веб приложения:
 
-    enable :sessions
+``` ruby
+enable :sessions
+```
 
 Подключается файл настройки Omniauth (это локальный файл `init_vk.rb`):
 
-    require 'init_vk'
+``` ruby
+require 'init_vk'
+```
 
 В файле `init_vk.rb` проверяется наличие конфигурационного файла
 `config/oauth.yml` - если он существует, то он загружается и обрабатывается
@@ -61,12 +65,16 @@
 
 Далее происходит инициализация соответсвующего провайдера в блоке:
 
-    use OmniAuth::Builder
+``` ruby
+use OmniAuth::Builder
+```
 
 Инициализируется провайдер авторизации через ВКонтакте:
 
-    provider :vkontakte, ENV['API_KEY'], ENV['API_SECRET'],
-      :scope => 'friends,audio,photos', :display => 'popup'
+``` ruby
+provider :vkontakte, ENV['API_KEY'], ENV['API_SECRET'],
+  :scope => 'friends,audio,photos', :display => 'popup'
+```
 
 
 Передаются ключ, и секретный код, указываются права доступа, которые будет запрашивать
@@ -78,9 +86,11 @@
 Возвращаясь к `app.rb`, это синатра приложение, и в нём описываются роуты (маршруты),
 которые может принимать это веб-приложение, описываются они в формате:
 
-    get '/урл' do
-      "результат выполнения будет выдан браузеру"
-    end
+``` ruby
+get '/урл' do
+  "результат выполнения будет выдан браузеру"
+end
+```
 
 При получении входящего запроса - Синатра смотрит все зарегистрированные роуты,
 и первый подходящий под запрос - будет выполнен, результат выполнения будет
@@ -88,19 +98,19 @@
 
 В нашем приложении зарегистрировано 3 роута:
 
+``` ruby
+get '/' do
+  ...
+end
 
-    get '/' do
-      ...
-    end
+get '/logout' do
+  ...
+end
 
-    get '/logout' do
-      ...
-    end
-
-    get '/auth/:name/callback' do
-      ...
-    end
-
+get '/auth/:name/callback' do
+  ...
+end
+```
 
 Первый обрабатывает запрос на корневую страницу.
 
@@ -115,7 +125,9 @@
 
 `erb` - это парсер, параметром является название шаблона:
 
-    erb :index
+``` ruby
+erb :index
+```
 
 В блоке `'/logout'` - происходит очистка сессии.
 
@@ -126,18 +138,24 @@
 Мы берём оттуда токен (неоходим для работы с API ВКонтакте), и имя пользователя
 и сохраняем эти значения в сессии:
 
-    session[:token] = auth_hash[:credentials][:token]
-    session[:name] = auth_hash[:info][:name]
+``` ruby
+session[:token] = auth_hash[:credentials][:token]
+session[:name] = auth_hash[:info][:name]
+```
 
 После чего делаем редирект на корневую страницу:
 
-    redirect '/'
+``` ruby
+redirect '/'
+```
 
-Надо отметить, что перед роутами, есть блок `before`:
+Надо отметить, что перед роутами есть блок `before`:
 
-    before do
-      @app = VkontakteApi::Client.new(session[:token]) if session[:token]
-    end
+``` ruby
+before do
+  @app = VkontakteApi::Client.new(session[:token]) if session[:token]
+end
+```
 
 Блок `before` в Sinatra выполяется перед каждым выполнением Роутов.
 
@@ -148,8 +166,9 @@
 В папке `views` есть файл `layout.erb` и Синатра по умолчанию использует файл
 с этим названием для отрисовки страницы, и внутри этого файла блок:
 
-    <%= yield %>
-
+``` ruby
+<%= yield %>
+```
 
 В этом место будет выведен результат выполнения блока Роута, например, 
 в случае роута на корневую страницу, на этом место будет выведен результат
@@ -158,11 +177,11 @@
 `index.erb` содержит условие, что если переменная `@app` проинициаилизрована
 то выводится erb файл `vk_api_demo.erb`:
 
-
-    <% if @app %>
-      <%= erb :vk_api_demo %>
-    <% end %>
-
+``` erb
+<% if @app %>
+  <%= erb :vk_api_demo %>
+<% end %>
+```
 
 И внутри этого файла находятся запросы к VK API.
 
@@ -206,12 +225,15 @@ http://docs.cloudfoundry.com/frameworks/ruby/sinatra.html
 
 Устанавливаем gem - vmc:
 
-    gem install vmc
+``` bash
+$ gem install vmc
+```
 
 Авторизуемся:
 
-    vmc login
-
+``` bash
+$ vmc login
+```
 
 Указываем емейл и пароль - полученный после регистрации.
 
@@ -219,14 +241,18 @@ http://docs.cloudfoundry.com/frameworks/ruby/sinatra.html
 
 Делаем команду Бандлера - упаковка:
 
-    bandle package
+``` bash
+$ bundle package
+```
 
 Появляется папка `vendor/cache` в которой сохранены все трубуемые для работы
 приложения библиотеки.
 
 Сейчас готовы к размещению на сервис, выполняем команду:
 
-    vmc push vk-test
+``` bash
+$ vmc push vk-test
+```
 
 Здесь `vk-test` это название приложение, и оно будет соответствовать доменному
 имени 3го уровня, то есть `vk-test.cloudfoundry.com` и на это доменное имя
@@ -237,14 +263,18 @@ http://docs.cloudfoundry.com/frameworks/ruby/sinatra.html
 
 Если ошибка, то получение логов командой:
 
-    vmc logs vk-test
+``` bash
+$ vmc logs vk-test
+```
 
 Где `vk-test` - название приложения.
 
 После модификаций файлов, повторное размещение уже для созданного приложения,
 выполняется по команде `update`:
 
-    vmc update vk-test
+``` bash
+$ vmc update vk-test
+```
 
 Должны обновиться файлы либо добавиться новые, остановка приложения и запуск.
 

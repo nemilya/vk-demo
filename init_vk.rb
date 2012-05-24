@@ -7,7 +7,7 @@ if File.exists?(config_path)
     ENV['API_SECRET'] ||= oauth_settings['vkontakte']['api_secret']
   end
 
-  use OmniAuth::Builder do  
+  use OmniAuth::Builder do
     if ENV['API_KEY']
       provider :vkontakte, ENV['API_KEY'], ENV['API_SECRET'],
         :scope => 'friends,audio,photos', :display => 'popup'
