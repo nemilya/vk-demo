@@ -219,7 +219,7 @@ http://docs.cloudfoundry.com/frameworks/ruby/sinatra.html
 
 Делаем команду Бандлера - упаковка:
 
-    bandle package
+    bundle package
 
 Появляется папка `vendor/cache` в которой сохранены все трубуемые для работы
 приложения библиотеки.
