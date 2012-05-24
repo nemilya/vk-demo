@@ -177,7 +177,7 @@ end
 `index.erb` содержит условие, что если переменная `@app` проинициаилизрована
 то выводится erb файл `vk_api_demo.erb`:
 
-``` ruby
+``` erb
 <% if @app %>
   <%= erb :vk_api_demo %>
 <% end %>
