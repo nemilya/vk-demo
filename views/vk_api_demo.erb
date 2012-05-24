@@ -1,0 +1,36 @@
+<pre>
+@app.get_user_settings  # => <%= @app.get_user_settings %>
+@app.groups.get         # => <%= @app.groups.get %>
+
+@app.friends.get(:fields=>'first_name,last_name') do |friend|
+  "#{friend[:first_name]} #{friend[:last_name]}"
+end 
+
+<% friends = @app.friends.get(:fields=>'first_name,last_name') do |friend|
+     "#{friend[:first_name]} #{friend[:last_name]}"
+   end %>
+<%= friends.join("\n") %>
+
+
+@app.audio.get do |audio| %>
+  "#{audio[:artist]} : #{audio[:title]}"
+end
+
+
+<% audios = @app.audio.get do |audio|
+    "#{audio[:artist]}: #{audio[:title]}"
+   end %>
+<%= audios.join("\n") %>
+
+
+@app.wall.get(:count=>7) do |wall_item|
+  "#{wall_item[:text]}"
+end
+
+<% wall_items = @app.wall.get(:count=>7) do |wall_item|
+    "#{wall_item[:text]}"
+   end %>
+<%= wall_items.join("\n\n") %>
+
+
+</pre>

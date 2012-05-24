@@ -1,0 +1,9 @@
+<% if session[:token] %>
+  Name: <%= session[:name] %> [<a href="/logout">Logout</a>]
+  <br />
+  token: <%= session[:token] %>
+  <br />
+  <%= erb :vk_api_demo %>
+<% else %>
+  <a href="/auth/vkontakte">Login by VKontakte</a>
+<% end %>
