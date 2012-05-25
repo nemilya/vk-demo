@@ -36,6 +36,113 @@ end'
 ) %>
   
 </div><!--/row-->
+
+<div class="row-fluid">
+  <div class="span8">
+    <h2>Фотографии</h2>
+    <p>
+<pre>
+&lt;%
+  # выбираем 7 последний загруженных фотографий
+  @photos = @app.photos.get_all(:count=>7)
+  # первым элементом массива - количество фотографий, убираем.
+  cnt = @photos.shift
+%&gt;
+Количество: &lt;%= cnt %&gt;
+&lt;br /&gt;
+Фотографии: &lt;br /&gt;
+&lt;% @photos.each do |photo| %&gt;
+  &lt;a target="_blank" href="&lt;%= photo[:src_big] %&gt;"&gt;&lt;img border="0" src="&lt;%= photo[:src_small] %&gt;" /&gt;&lt;/a&gt;
+&lt;% end %&gt;
+</pre>
+    Результат:<br>
+
+    <%
+      @photos = @app.photos.get_all(:count=>7)
+      cnt = @photos.shift
+    %>
+    Количество: <%= cnt %>
+    <br />
+    Фотографии: <br />
+    <% @photos.each do |photo| %>
+    <a target="_blank" href="<%= photo[:src_big] %>"><img border="0" src="<%= photo[:src_small] %>" /></a>
+    <% end %>
+    </p>
+    <p><a class="btn" target="_blank" href="http://vk.com/developers.php?o=-1&p=photos.getAll">API документация &raquo;</a></p>
+  </div><!--/span-->
+</div><!--/row-->
+
+
+<div class="row-fluid">
+  <div class="span8">
+    <h2>Фотографии из Группы</h2>
+    <p>
+<pre>
+&lt;%
+  # выбираем 7 последний загруженных фотографий, для группы с id=2850
+  @photos = @app.photos.get_all(:owner_id=>-2850 ,:count=>7)
+  # первым элементом массива - количество фотографий, убираем.
+  cnt = @photos.shift
+%&gt;
+Количество: &lt;%= cnt %&gt;
+&lt;br /&gt;
+Фотографии: &lt;br /&gt;
+&lt;% @photos.each do |photo| %&gt;
+  &lt;a target="_blank" href="&lt;%= photo[:src_big] %&gt;"&gt;&lt;img border="0" src="&lt;%= photo[:src_small] %&gt;" /&gt;&lt;/a&gt;
+&lt;% end %&gt;
+</pre>
+    Результат:<br>
+
+    <%
+      @photos = @app.photos.get_all(:owner_id=>-2850 ,:count=>7)
+      cnt = @photos.shift
+    %>
+    Количество: <%= cnt %>
+    <br />
+    Фотографии: <br />
+    <% @photos.each do |photo| %>
+    <a target="_blank" href="<%= photo[:src_big] %>"><img border="0" src="<%= photo[:src_small] %>" /></a>
+    <% end %>
+    </p>
+    <p><a class="btn" target="_blank" href="http://vk.com/developers.php?o=-1&p=photos.getAll">API документация &raquo;</a></p>
+  </div><!--/span-->
+</div><!--/row-->
+
+<div class="row-fluid">
+  <div class="span8">
+    <h2>Фотографии пользователя</h2>
+    <p>
+<pre>
+&lt;%
+  # выбираем 7 последний загруженных фотографий, для пользователя с id=1
+  @photos = @app.photos.get_all(:owner_id=>1,:count=>7)
+  # первым элементом массива - количество фотографий, убираем.
+  cnt = @photos.shift
+%&gt;
+Количество: &lt;%= cnt %&gt;
+&lt;br /&gt;
+Фотографии: &lt;br /&gt;
+&lt;% @photos.each do |photo| %&gt;
+  &lt;a target="_blank" href="&lt;%= photo[:src_big] %&gt;"&gt;&lt;img border="0" src="&lt;%= photo[:src_small] %&gt;" /&gt;&lt;/a&gt;
+&lt;% end %&gt;
+</pre>
+    Результат:<br>
+
+    <%
+      @photos = @app.photos.get_all(:owner_id=>1,:count=>7)
+      cnt = @photos.shift
+    %>
+    Количество: <%= cnt %>
+    <br />
+    Фотографии: <br />
+    <% @photos.each do |photo| %>
+    <a target="_blank" href="<%= photo[:src_big] %>"><img border="0" src="<%= photo[:src_small] %>" /></a>
+    <% end %>
+    </p>
+    <p><a class="btn" target="_blank" href="http://vk.com/developers.php?o=-1&p=photos.getAll">API документация &raquo;</a></p>
+  </div><!--/span-->
+</div><!--/row-->
+
 <div class="row-fluid">
 
 <%= show_api_demo('Список аудиозаписей', 'audio.get', 
@@ -51,9 +158,4 @@ end'
 end'
 ) %>
 
-  <div class="span4">
-    <h2>TODO</h2>
-    <p>...</p>
-    <p><a class="btn" href="#">View details &raquo;</a></p>
-  </div><!--/span-->
 </div><!--/row-->
