@@ -3,8 +3,8 @@
   <div class="span4">
     <h2>getUserSettings</h2>
     <p>
-      <pre>@app.get_user_settings</pre>
-      Результат: <%= @app.get_user_settings %>
+      <pre><%= SNIPPETS[:user_settings] %></pre>
+      Результат: <%= eval(SNIPPETS[:user_settings]) %>
     </p>
     <p><a class="btn" target="_blank" href="http://vk.com/developers.php?o=-1&p=getUserSettings">API документация &raquo;</a></p>
   </div><!--/span-->
@@ -12,8 +12,9 @@
   <div class="span4">
     <h2>Список групп</h2>
     <p>
-      <pre>@app.groups.get</pre>
-      Результат: <%= @app.groups.get %>
+      <pre><%= SNIPPETS[:groups] %></pre>
+      Результат:<br />
+      <%= eval(SNIPPETS[:groups]).first(7).join('<br />') %>
     </p>
     
     <p><a class="btn" target="_blank" href="http://vk.com/developers.php?o=-1&p=groups.get">API документация &raquo;</a></p>
@@ -22,17 +23,10 @@
   <div class="span4">
     <h2>Список друзей</h2>
     <p>
-      <pre>
-      @app.friends.get(:fields=>'first_name,last_name', :count=>7) do |friend|
-        "#{friend[:first_name]} #{friend[:last_name]}"
-      end
-      </pre>
+      <pre><%= SNIPPETS[:friends] %></pre>
 
       Результат:<br />
-      <% friends = @app.friends.get(:fields=>'first_name,last_name', :count=>7) do |friend|
-           "#{friend[:first_name]} #{friend[:last_name]}"
-         end %>
-      <%= friends.join("<br />") %>
+      <%= eval(SNIPPETS[:friends]).join('<br />') %>
     </p>
     
     <p><a class="btn" target="_blank" href="http://vk.com/developers.php?o=-1&p=friends.get">API документация &raquo;</a></p>
@@ -44,17 +38,10 @@
   <div class="span4">
     <h2>Список аудиозаписей</h2>
     <p>
-      <pre>
-      @app.audio.get(:count=>7) do |audio|
-        "#{audio[:artist]} : #{audio[:title]}"
-      end
-      </pre>
+      <pre><%= SNIPPETS[:audio] %></pre>
       
       Результат:<br />
-      <% audios = @app.audio.get(:count=>7) do |audio|
-          "#{audio[:artist]}: #{audio[:title]}"
-         end %>
-      <%= audios.join("<br />") %>
+      <%= eval(SNIPPETS[:audio]).join('<br />') %>
     </p>
     
     <p><a class="btn" target="_blank" href="http://vk.com/developers.php?o=-1&p=audio.get">API документация &raquo;</a></p>
@@ -64,16 +51,10 @@
   <div class="span4">
     <h2>Записи на стене</h2>
     <p>
-      <pre>
-      @app.wall.get(:count=>7) do |wall_item|
-        "#{wall_item[:text]}"
-      end
-      </pre>
-
-      <% wall_items = @app.wall.get(:count=>7) do |wall_item|
-          "#{wall_item[:text]}"
-         end %>
-      <%= wall_items.join("<br />") %>
+      <pre><%= SNIPPETS[:wall] %></pre>
+      
+      Результат:<br />
+      <%= eval(SNIPPETS[:wall]).join('<br />') %>
     </p>
     <p><a class="btn" target="_blank" href="http://vk.com/developers.php?o=-1&p=wall.get">API документация &raquo;</a></p>
   </div><!--/span-->
