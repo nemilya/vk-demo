@@ -1,63 +1,55 @@
+<%
+  def show_api_demo(title, doc_name, ruby_code)
+    str =  '<div class="span4">'+"\n"
+    str += '  <h2>'+title+'</h2>'+"\n"
+    str += '  <p>'+"\n"
+    str += '    <pre>'+ ruby_code +'</pre>'+"\n"
+    result = eval(ruby_code)
+    if result.class == [].class
+      result = result.join("<br />")
+    end
+    str += 'Результат: ' + result.to_s + "\n"
+    str += '  </p>' + "\n"
+    str += '  <p><a class="btn" target="_blank" href="http://vk.com/developers.php?o=-1&p='+ doc_name +'">API документация &raquo;</a></p>'+"\n"
+    str += '</div><!--/span-->' +"\n"
+  end
+%>
+
 <div class="row-fluid">
 
-  <div class="span4">
-    <h2>getUserSettings</h2>
-    <p>
-      <pre><%= SNIPPETS[:user_settings] %></pre>
-      Результат: <%= eval(SNIPPETS[:user_settings]) %>
-    </p>
-    <p><a class="btn" target="_blank" href="http://vk.com/developers.php?o=-1&p=getUserSettings">API документация &raquo;</a></p>
-  </div><!--/span-->
+<%= show_api_demo('getUserSettings', 'getUserSettings', 
+  '@app.get_user_settings'
+) %>
 
-  <div class="span4">
-    <h2>Список групп</h2>
-    <p>
-      <pre><%= SNIPPETS[:groups] %></pre>
-      Результат:<br />
-      <%= eval(SNIPPETS[:groups]).first(7).join('<br />') %>
-    </p>
-    
-    <p><a class="btn" target="_blank" href="http://vk.com/developers.php?o=-1&p=groups.get">API документация &raquo;</a></p>
-  </div><!--/span-->
 
-  <div class="span4">
-    <h2>Список друзей</h2>
-    <p>
-      <pre><%= SNIPPETS[:friends] %></pre>
+<%= show_api_demo('Список групп', 'groups.get', 
+'@app.groups.get(:extended=>1).map do |group|
+  "#{group[:name]} (#{group[:screen_name]})"
+end'
+) %>
+  
 
-      Результат:<br />
-      <%= eval(SNIPPETS[:friends]).join('<br />') %>
-    </p>
-    
-    <p><a class="btn" target="_blank" href="http://vk.com/developers.php?o=-1&p=friends.get">API документация &raquo;</a></p>
-  </div><!--/span-->
-
+<%= show_api_demo('Список друзей', 'friends.get', 
+'@app.friends.get(:fields=>"first_name,last_name", :count=>7).map do |friend|
+  "#{friend[:first_name]} #{friend[:last_name]}"
+end'
+) %>
+  
 </div><!--/row-->
 <div class="row-fluid">
 
-  <div class="span4">
-    <h2>Список аудиозаписей</h2>
-    <p>
-      <pre><%= SNIPPETS[:audio] %></pre>
-      
-      Результат:<br />
-      <%= eval(SNIPPETS[:audio]).join('<br />') %>
-    </p>
-    
-    <p><a class="btn" target="_blank" href="http://vk.com/developers.php?o=-1&p=audio.get">API документация &raquo;</a></p>
-  </div><!--/span-->
+<%= show_api_demo('Список аудиозаписей', 'audio.get', 
+'@app.audio.get(:count=>7).map do |audio|
+  "#{audio[:artist]}: #{audio[:title]}"
+end'
+) %>
 
 
-  <div class="span4">
-    <h2>Записи на стене</h2>
-    <p>
-      <pre><%= SNIPPETS[:wall] %></pre>
-      
-      Результат:<br />
-      <%= eval(SNIPPETS[:wall]).join('<br />') %>
-    </p>
-    <p><a class="btn" target="_blank" href="http://vk.com/developers.php?o=-1&p=wall.get">API документация &raquo;</a></p>
-  </div><!--/span-->
+<%= show_api_demo('Записи на стене', 'wall.get', 
+'@app.wall.get(:count=>7).map do |wall_item|
+  "#{wall_item[:text]}"
+end'
+) %>
 
   <div class="span4">
     <h2>TODO</h2>
