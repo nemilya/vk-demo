@@ -8,7 +8,6 @@ require 'vkontakte_api'
 enable :sessions
 
 require 'init_vk'
-require 'snippets'
 
 before do
   @app = VkontakteApi::Client.new(session[:token]) if session[:token]
