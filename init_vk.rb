@@ -1,14 +1,14 @@
+# by default
+config_path = File.join("config", "oauth.yml")
+
 configure :development do
+  # в режиме разрабокти используем oauth.local.yml конфиг файл
   config_path = File.join("config", "oauth.local.yml")
 
-  # в случае если тестируем локально, то убираем проверку сертификата
-  # иначе были сложности
+  # убираем проверку сертификата иначе были сложности
   OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 end
 
-configure :production do
-  config_path = File.join("config", "oauth.yml")
-end
 
 if File.exists?(config_path)
   oauth_settings = YAML.load(File.read(config_path))
