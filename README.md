@@ -212,7 +212,7 @@ end
 
 Адрес сайта: http://vk-test.cloudfoundry.com
 
-Базовый домен: http://cloudfoundry.com
+Базовый домен: http://vk-test.cloudfoundry.com
 
 Внимание! vk-test.cloudfoundry.com - может быть занят, поэтому предварительно 
 проверьте что домен 3го уровня не занят.
