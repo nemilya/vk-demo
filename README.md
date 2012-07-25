@@ -13,7 +13,7 @@
 * [Sinatra](http://sinatraruby.ru/) - минималистичный веб фреймворк на Ruby
 * [omniauth](https://github.com/intridea/omniauth) - универсальная система авторизации
 * [omniauth-vkontakte](https://github.com/mamantoha/omniauth-vkontakte) - модуль для OmniAuth для авторизации в ВКонтакте
-* [vkontakte_api](https://github.com/7even/vkontakte_api/blob/master/README.ru.md) - Ruby обёртка для API функций ВКонтакте
+* [vkontakte_api](https://github.com/7even/vkontakte_api/blob/master/README.md) - Ruby обёртка для API функций ВКонтакте
 
 
 Принцип работы
